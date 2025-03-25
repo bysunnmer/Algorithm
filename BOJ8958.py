@@ -1,4 +1,4 @@
-# 25. 03 24
+# 25.03.24
 
 T = int(input())
 for tc in range(T):
