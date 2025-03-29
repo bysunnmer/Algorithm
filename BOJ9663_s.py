@@ -1,15 +1,21 @@
-def check(row):
-    for col in range(row):
-        if visited[row] == visited[col]:
-            return False
+# 25.03.29
 
-        if abs(visited[row] - visited[col]) == abs(row - col):
+N = 8
+visited = [0] * N
+cnt = 0
+
+
+def check(row):
+    for r in range(row):
+        if visited[row] == visited[r]:
+            return False
+        if abs(visited[row] - visited[r]) == abs(row - r):
             return False
 
     return True
 
 
-def dfs(row):
+def queen(row):
     global cnt
 
     if row == N:
@@ -20,12 +26,9 @@ def dfs(row):
         visited[row] = col
         if not check(row):
             continue
+        queen(row+1)
+        visited[row] = 0        # 초기화 안 해도 됨
 
-        dfs(row + 1)
 
-N = int(input())
-visited = [0] * N
-cnt = 0
-
-dfs(0)
+queen(0)
 print(cnt)
