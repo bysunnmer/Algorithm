@@ -1,5 +1,4 @@
 # 25.04.07
-from symbol import continue_stmt
 
 
 def find_set(x):
