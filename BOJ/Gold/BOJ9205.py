@@ -1,4 +1,4 @@
-# 25.04.06
+# 25.04.06 / 25.04.12
 
 # 상근이 집에서 맥주 한 박스 (20개) 들고 출발
 # 50미터에 한 병 씩
@@ -8,45 +8,34 @@
 
 from collections import deque
 
+
+def bfs():
+    q.append(0)
+    while q:
+        idx = q.pop()
+        visited[idx] = 1
+        for i in range(1, n+2):
+            if visited[i]:
+                continue
+            if abs(places[i][0] - places[idx][0]) + abs(places[i][1] - places[idx][1]) <= 1000:
+                if i == n+1:
+                    return "happy"
+                else:
+                    q.append(i)
+    return "sad"
+
+
 t = int(input())
 for tc in range(t):
     n = int(input())
-    hx, hy = map(int, input().split())
-    con = [list(map(int, input().split())) for _ in range(n)]
-    fx, fy = map(int, input().split())
-    lst = con + [fx, fy]
-    visited = [0] * (n+1)
+    places = []
+    for _ in range(n+2):
+        x, y = map(int, input().split())
+        places.append((x, y))
 
+    visited = [0] * (n+2)
     q = deque()
 
+    result = bfs()
 
-
-    def bfs():
-
-        for i in range(len(lst)):
-            if visited[i]:
-                continue
-            elif abs(lst):
-                visited[i] = 1
-                q.append(con[i])
-
-
-    flag = False
-    first = abs(con[0][0] - hx) + (con[0][1] - hy)  # 1000
-    if first <= 20 * 50:
-        drink = 20 - first // 50
-        buy = drink
-
-        second = abs(con[1][0] - con[0][0]) + abs(con[1][1] - con[0][1])
-        if second <= 20 * 50:
-            drink = 20 - second // 50
-            buy = drink
-
-            third = abs(con[1][0] - fx) + abs(con[1][1] - fy)
-            if third <= 20 * 50:
-                flag = True
-
-    if flag:
-        print('happy')
-    else:
-        print('sad')
+    print(result)
