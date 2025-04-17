@@ -41,11 +41,24 @@
 # >>> pass 하긴 했는데 다른 방법으로 다시 풀기
 # 완전탐색
 
+def get_sum(r1, c1, h, w):
+    r2, c2 = r1 + h - 1, c1 + w - 1
+    total = psum[r2][c2]
+    if r1 > 0:
+        total -= psum[r1-1][c2]
+    if c1 > 0:
+        total -= psum[r1][c1-1]
+    if r1 > 0 and c1 > 0:
+        total += psum[r1-1][c1-1]
+    return total
+
+
 T = int(input())
 for tc in range(1, T+1):
     N = int(input())
     arr = [list(map(int, input().split())) for _ in range(N)]
     psum = [[0] * N for _ in range(N)]
+    max_v = 0
 
     for i in range(N):
         for j in range(N):
@@ -64,3 +77,6 @@ for tc in range(1, T+1):
                     for w in range(1, N-c+1):
                         if r+h >= N or c+w >= N:
                             continue
+                        if get_sum(r, c, h, w) == h * w:
+                            max_v = max(max_v, h * w)
+    print(max_v)
