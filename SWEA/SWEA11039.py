@@ -38,10 +38,29 @@
 #     print(f'#{tc} {max_v}')
 
 
-# >>> pass 하긴 했는데 더 효율적인 방법으로 다시 풀기
+# >>> pass 하긴 했는데 다른 방법으로 다시 풀기
+# 완전탐색
 
 T = int(input())
 for tc in range(1, T+1):
     N = int(input())
     arr = [list(map(int, input().split())) for _ in range(N)]
-    visited = [[0] * N for _ in range(N)]
+    psum = [[0] * N for _ in range(N)]
+
+    for i in range(N):
+        for j in range(N):
+            psum[i][j] = arr[i][j]
+            if i > 0:
+                psum[i][j] += psum[i-1][j]
+            if j > 0:
+                psum[i][j] += psum[i][j-1]
+            if i > 0 and j > 0:
+                psum[i][j] -= psum[i-1][j-1]
+
+    for r in range(N):
+        for c in range(N):
+            if arr[r][c] == 1:
+                for h in range(1, N-r+1):
+                    for w in range(1, N-c+1):
+                        if r+h >= N or c+w >= N:
+                            continue
