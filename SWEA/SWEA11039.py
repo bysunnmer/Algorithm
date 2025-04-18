@@ -47,7 +47,7 @@ def get_sum(r1, c1, h, w):
     if r1 > 0:
         total -= psum[r1-1][c2]
     if c1 > 0:
-        total -= psum[r1][c1-1]
+        total -= psum[r2][c1-1]
     if r1 > 0 and c1 > 0:
         total += psum[r1-1][c1-1]
     return total
@@ -75,8 +75,11 @@ for tc in range(1, T+1):
             if arr[r][c] == 1:
                 for h in range(1, N-r+1):
                     for w in range(1, N-c+1):
-                        if r+h >= N or c+w >= N:
+                        if r+h-1 >= N or c+w-1 >= N:
                             continue
                         if get_sum(r, c, h, w) == h * w:
                             max_v = max(max_v, h * w)
-    print(max_v)
+
+    print(f'#{tc} {max_v}')
+
+
