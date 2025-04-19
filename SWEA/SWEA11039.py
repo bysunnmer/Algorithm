@@ -41,42 +41,79 @@
 # >>> pass 하긴 했는데 다른 방법으로 다시 풀기
 # 완전탐색
 
-def get_sum(r1, c1, h, w):
-    r2, c2 = r1 + h - 1, c1 + w - 1
-    total = psum[r2][c2]
-    if r1 > 0:
-        total -= psum[r1-1][c2]
-    if c1 > 0:
-        total -= psum[r1][c1-1]
-    if r1 > 0 and c1 > 0:
-        total += psum[r1-1][c1-1]
-    return total
+# def get_sum(r1, c1, h, w):
+#     r2, c2 = r1 + h - 1, c1 + w - 1
+#     total = psum[r2][c2]
+#     if r1 > 0:
+#         total -= psum[r1-1][c2]
+#     if c1 > 0:
+#         total -= psum[r1][c1-1]
+#     if r1 > 0 and c1 > 0:
+#         total += psum[r1-1][c1-1]
+#     return total
+#
+#
+# T = int(input())
+# for tc in range(1, T+1):
+#     N = int(input())
+#     arr = [list(map(int, input().split())) for _ in range(N)]
+#     psum = [[0] * N for _ in range(N)]
+#     max_v = 0
+#
+#     for i in range(N):
+#         for j in range(N):
+#             psum[i][j] = arr[i][j]
+#             if i > 0:
+#                 psum[i][j] += psum[i-1][j]
+#             if j > 0:
+#                 psum[i][j] += psum[i][j-1]
+#             if i > 0 and j > 0:
+#                 psum[i][j] -= psum[i-1][j-1]
+#
+#     for r in range(N):
+#         for c in range(N):
+#             if arr[r][c] == 1:
+#                 for h in range(1, N-r+1):
+#                     for w in range(1, N-c+1):
+#                         if r+h >= N or c+w >= N:
+#                             continue
+#                         if get_sum(r, c, h, w) == h * w:
+#                             max_v = max(max_v, h * w)
+#     print(max_v)
+
+
+# 히스토그램 - 스택
+
+def area(lst):
+    global max_v
+    stack = []
+
+    for c_idx, c_height in enumerate(heights):
+        while stack and heights[stack[-1]] > c_height:
+            height = heights[stack.pop()]
+            if not stack:
+                width = c_idx
+            else:
+                width = c_idx - stack[-1] -1
+            max_v = max(max_v, height*width)
+
+        stack.append(c_idx)
 
 
 T = int(input())
 for tc in range(1, T+1):
     N = int(input())
     arr = [list(map(int, input().split())) for _ in range(N)]
-    psum = [[0] * N for _ in range(N)]
+    heights = [0] * (N+1)
     max_v = 0
 
     for i in range(N):
         for j in range(N):
-            psum[i][j] = arr[i][j]
-            if i > 0:
-                psum[i][j] += psum[i-1][j]
-            if j > 0:
-                psum[i][j] += psum[i][j-1]
-            if i > 0 and j > 0:
-                psum[i][j] -= psum[i-1][j-1]
+            if arr[i][j] == 1:
+                heights[j] += 1
+            else:
+                heights[j] = 0
 
-    for r in range(N):
-        for c in range(N):
-            if arr[r][c] == 1:
-                for h in range(1, N-r+1):
-                    for w in range(1, N-c+1):
-                        if r+h >= N or c+w >= N:
-                            continue
-                        if get_sum(r, c, h, w) == h * w:
-                            max_v = max(max_v, h * w)
-    print(max_v)
+        area(heights)
+
+    print(f'#{tc} {max_v}')
