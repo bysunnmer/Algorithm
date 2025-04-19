@@ -47,7 +47,7 @@
 #     if r1 > 0:
 #         total -= psum[r1-1][c2]
 #     if c1 > 0:
-#         total -= psum[r1][c1-1]
+#         total -= psum[r2][c1-1]
 #     if r1 > 0 and c1 > 0:
 #         total += psum[r1-1][c1-1]
 #     return total
@@ -70,16 +70,19 @@
 #             if i > 0 and j > 0:
 #                 psum[i][j] -= psum[i-1][j-1]
 #
-#     for r in range(N):
-#         for c in range(N):
-#             if arr[r][c] == 1:
-#                 for h in range(1, N-r+1):
-#                     for w in range(1, N-c+1):
-#                         if r+h >= N or c+w >= N:
-#                             continue
-#                         if get_sum(r, c, h, w) == h * w:
-#                             max_v = max(max_v, h * w)
-#     print(max_v)
+
+
+    # for r in range(N):
+    #     for c in range(N):
+    #         if arr[r][c] == 1:
+    #             for h in range(1, N-r+1):
+    #                 for w in range(1, N-c+1):
+    #                     if r+h-1 >= N or c+w-1 >= N:
+    #                         continue
+    #                     if get_sum(r, c, h, w) == h * w:
+    #                         max_v = max(max_v, h * w)
+    #
+    # print(f'#{tc} {max_v}')
 
 
 # 히스토그램 - 스택
@@ -99,7 +102,6 @@ def area(lst):
 
         stack.append(c_idx)
 
-
 T = int(input())
 for tc in range(1, T+1):
     N = int(input())
@@ -117,3 +119,4 @@ for tc in range(1, T+1):
         area(heights)
 
     print(f'#{tc} {max_v}')
+
