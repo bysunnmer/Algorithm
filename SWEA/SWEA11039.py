@@ -1,4 +1,5 @@
 # 25.04.16
+
 # from collections import deque
 #
 # def bfs(x, y):
@@ -20,6 +21,7 @@
 #                 q.append((nr, nc))
 #
 #     return cnt
+#
 #
 # T = int(input())
 # for tc in range(1, T+1):
@@ -60,7 +62,7 @@
 #     psum = [[0] * N for _ in range(N)]
 #     max_v = 0
 #
-#     for i in range(N):
+#    for i in range(N):
 #         for j in range(N):
 #             psum[i][j] = arr[i][j]
 #             if i > 0:
@@ -70,19 +72,17 @@
 #             if i > 0 and j > 0:
 #                 psum[i][j] -= psum[i-1][j-1]
 #
-
-
-    # for r in range(N):
-    #     for c in range(N):
-    #         if arr[r][c] == 1:
-    #             for h in range(1, N-r+1):
-    #                 for w in range(1, N-c+1):
-    #                     if r+h-1 >= N or c+w-1 >= N:
-    #                         continue
-    #                     if get_sum(r, c, h, w) == h * w:
-    #                         max_v = max(max_v, h * w)
-    #
-    # print(f'#{tc} {max_v}')
+#    for r in range(N):
+#        for c in range(N):
+#            if arr[r][c] == 1:
+#                for h in range(1, N-r+1):
+#                    for w in range(1, N-c+1):
+#                        if r+h-1 >= N or c+w-1 >= N:
+#                            continue
+#                        if get_sum(r, c, h, w) == h * w:
+#                            max_v = max(max_v, h * w)
+#
+#    print(f'#{tc} {max_v}')
 
 
 # 히스토그램 - 스택
@@ -101,6 +101,7 @@ def area(lst):
             max_v = max(max_v, height*width)
 
         stack.append(c_idx)
+
 
 T = int(input())
 for tc in range(1, T+1):
