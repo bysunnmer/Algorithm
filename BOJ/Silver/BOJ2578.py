@@ -30,10 +30,14 @@ result = 0
 for r in range(5):
     for c in range(5):
         bingo(call[r][c])
-        if 5 in row or 5 in col or 0 not in l_dia or 0 not in r_dia:
+        if l_dia == [1] * 5:
             cnt += 1
-            if cnt == 3:
-                result = 5 * r + (c + 1)
-                break
+        if r_dia == [1] * 5:
+            cnt += 1
+        cnt += row.count(5) + col.count(5)
+
+        if cnt == 3:
+            result = 5 * r + (c + 1)
+            break
 
 print(result)
