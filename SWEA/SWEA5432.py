@@ -5,18 +5,21 @@
 # 레이저는 하나 이상 존재
 # 레이저는 어떤 쇠막대기의 양 끝점과도 겹치지 않음
 
+
+'''
+() ( ( ( () () ) ( () ) () ) ) ( () )
+   - - -       - -    -    - -
+
+지금 스택 ( ( (
+'''
+
+
 T = int(input())
 for tc in range(1, T+1):
     assign = list(input())
     stack = []
     lasers = []
     cnt = 0
-    '''
-    () ( ( ( () () ) ( () ) () ) ) ( () )
-       - - -       - -    -    - -
-    
-    지금 스택 ( ( (
-    '''
     for i, a in enumerate(assign):
         if a == '(':
             stack.append((i, a))
@@ -26,10 +29,12 @@ for tc in range(1, T+1):
                 stack.pop()
                 lasers.pop()
                 if lasers:
-                    for laser in lasers:
-                        laser += 1
-            else:
+                    for idx in range(len(lasers)):     # for laser in lasers 로 하려고 했는데
+                        lasers[idx] += 1               # 이때 laser 는 리스트 내의 해당 값을 복사해서 받는 지역변수라
+            else:                                      # 원본 리스트 안의 요소가 바뀌지 않음
                 stack.pop()
                 cnt += (lasers.pop() + 1)
 
-    print(cnt)
+    print(f'#{tc} {cnt}')
+
+
