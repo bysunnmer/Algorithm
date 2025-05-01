@@ -1,5 +1,5 @@
-# 25.04.07
-
+# 25.04.07 / 25.05.01
+from math import sqrt
 
 def find_set(x):
     if x == parents[x]:
@@ -17,10 +17,8 @@ def union(x, y):
 
     if ref_x < ref_y:
         parents[ref_y] = ref_x
-        parents[ref_x] = ref_y
     else:
         parents[ref_x] = ref_y
-        parents[ref_y] = ref_x
 
 
 n = int(input())
@@ -29,13 +27,12 @@ stars = [list(map(float, input().split())) for _ in range(n)]
 edges = []
 
 for i in range(n):
-    for j in range(n):
-        if i == j:
-            continue
-        edges.append((stars[i], stars[j], abs(stars[i][0] - stars[j][0]) + abs(stars[i][1] - stars[j][1])))
+    for j in range(i+1, n):
+
+        edges.append((i, j, sqrt((stars[i][0] - stars[j][0])**2 + (stars[i][1] - stars[j][1])**2)))
 
 edges.sort(key=lambda x: x[2])
-parents = [i for i in range(n)]
+parents = [i for i in range(n+1)]
 cost = 0
 cnt = 0
 
